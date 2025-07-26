@@ -25,7 +25,7 @@ function readWord(event){
     let word = event.srcElement.innerText;
     if(word){
         const wordToRead = new SpeechSynthesisUtterance(word);
-        wordToRead.lang = language;
+        wordToRead.lang = leftLanguage;
         speechSynthesis.speak(wordToRead);
     }
 }

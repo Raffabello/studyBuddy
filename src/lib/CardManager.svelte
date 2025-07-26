@@ -23,6 +23,23 @@ function addWordToList(){
         </div>
         {/each}
     </div>
+    <div id="settings">
+        <p>App Settings:</p>
+        <div id="select-language">
+            <div>
+                <span>Left Language</span>
+                <select id="left-language-select">
+                    
+                </select>
+            </div>
+            <div>
+                <span>Right Language</span>
+                <select id="right-language-select">
+                    
+                </select>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 
@@ -46,6 +63,12 @@ function addWordToList(){
 
     .word-card div{
         width:50%;
+    }
+
+    #select-language{
+        width:50%;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
     }
 
 </style>

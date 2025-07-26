@@ -32,11 +32,16 @@ function addWordToList(){
         display:flex;
         flex-direction: column;
         justify-content: center;
+        padding:12px;
     }
 
     .word-card{
         display:flex;
+        padding:3px;
+        
         border:1px solid black;
+        border-radius:5px;
+        margin-bottom:5px;
     }
 
     .word-card div{

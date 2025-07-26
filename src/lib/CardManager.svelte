@@ -7,6 +7,14 @@ function addWordToList(){
       enteredWord = '';
     }
 }  
+
+function readWord(event){
+    let word = event.srcElement.innerText;
+    if(word){
+        const wordToRead = new SpeechSynthesisUtterance(word);
+        speechSynthesis.speak(wordToRead);
+    }
+}
 </script>
 
 <div id="display">
@@ -18,7 +26,7 @@ function addWordToList(){
     <div id="card-manager-body">
         {#each cards as word}
         <div class="word-card">
-            <div class="word-card-left">{word}</div>
+            <button class="word-card-left" on:click={readWord}>{word}</button>
             <div class="word-card-right" contenteditable="true">Meaning</div>
         </div>
         {/each}

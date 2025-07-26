@@ -1,12 +1,34 @@
 <script lang="ts">
     let enteredWord = "";
+    
+    let supportedLanguages = 
+    [
+        {language:"English", code:"en-US"},
+        {language:"Italian", code:"it-IT"},
+        {language:"French", code:"fr-FR"},
+        {language:"Japanese", code:"ja-JP"},
+        {language:"Chinese", code:"zh-CN"},
+    ]
+    let leftLanguage = supportedLanguages[0].code;
+    let rightLanguage = supportedLanguages[0].code;
+
     let cards:string[] = [];
+
 function addWordToList(){
     if (enteredWord.trim()) {
       cards = [...cards, enteredWord]; //using the spread operator add the last word added ent to the array
       enteredWord = '';
     }
 }  
+
+function readWord(event){
+    let word = event.srcElement.innerText;
+    if(word){
+        const wordToRead = new SpeechSynthesisUtterance(word);
+        wordToRead.lang = leftLanguage;
+        speechSynthesis.speak(wordToRead);
+    }
+}
 </script>
 
 <div id="display">
@@ -18,7 +40,7 @@ function addWordToList(){
     <div id="card-manager-body">
         {#each cards as word}
         <div class="word-card">
-            <div class="word-card-left">{word}</div>
+            <button class="word-card-left" on:click={readWord}>{word}</button>
             <div class="word-card-right" contenteditable="true">Meaning</div>
         </div>
         {/each}
@@ -28,14 +50,18 @@ function addWordToList(){
         <div id="select-language">
             <div>
                 <span>Left Language</span>
-                <select id="left-language-select">
-                    
+                <select bind:value={leftLanguage} id="left-language-select">
+                    {#each supportedLanguages as language}
+                        <option value={language.code}>{language.language}</option>
+                    {/each}
                 </select>
             </div>
             <div>
                 <span>Right Language</span>
-                <select id="right-language-select">
-                    
+                <select bind:value={rightLanguage} id="right-language-select">
+                    {#each supportedLanguages as language}
+                        <option value={language.code}>{language.language}</option>
+                    {/each}
                 </select>
             </div>
         </div>
@@ -59,6 +85,13 @@ function addWordToList(){
         border:1px solid black;
         border-radius:5px;
         margin-bottom:5px;
+    }
+
+    .word-card-left{
+        text-align: left;
+        background-color:transparent;
+        border:none;
+        width:50%;
     }
 
     .word-card div{
